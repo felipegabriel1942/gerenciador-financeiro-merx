@@ -17,11 +17,7 @@ public class CategoriaService implements Serializable{
 	@Inject
 	private CategoriaRepository cr;
 	
-	public void salvarCategoria() {
-		
-		
-	}
-
+	
 	
 	
 	

@@ -9,22 +9,22 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.merx.model.Categoria;
+import br.com.merx.model.Lista;
 import br.com.merx.util.EntityManagerUtil;
 
 @Stateless
 @LocalBean
-public class CategoriaRepository implements Serializable {
+public class ListaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private EntityManager em;
 
-	public CategoriaRepository() {
+	public ListaRepository() {
 		em = EntityManagerUtil.geEntityManager();
 	}
 
-	public void salvarCategoria(Categoria obj) {
+	public void salvarLista(Lista obj) {
 		try {
 			em.getTransaction().begin();
 			em.persist(obj);
@@ -37,7 +37,7 @@ public class CategoriaRepository implements Serializable {
 		em.close();
 	}
 
-	public void editarCategoria(Categoria obj) {
+	public void editarLista(Lista obj) {
 		try {
 			em.getTransaction().begin();
 			em.merge(obj);
@@ -50,7 +50,7 @@ public class CategoriaRepository implements Serializable {
 		em.close();
 	}
 
-	public void excluirCategoria(Categoria obj) {
+	public void excluirLista(Lista obj) {
 		try {
 			em.getTransaction().begin();
 			em.remove(obj);
@@ -64,9 +64,9 @@ public class CategoriaRepository implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Categoria> bucsarTodasAsCategorias() {
-		List<Categoria> resultado = new ArrayList<>();
-		Query query = em.createQuery("select c from Categoria c", Categoria.class);
+	public List<Lista> bucsarTodasAsListas() {
+		List<Lista> resultado = new ArrayList<>();
+		Query query = em.createQuery("select c from Lista c", Lista.class);
 		resultado = query.getResultList();
 		return resultado;
 	}
