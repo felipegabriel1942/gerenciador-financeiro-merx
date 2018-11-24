@@ -34,7 +34,7 @@ public class CategoriaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	public void editarCategoria(Categoria obj) {

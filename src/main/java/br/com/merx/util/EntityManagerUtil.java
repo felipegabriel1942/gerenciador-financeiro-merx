@@ -11,7 +11,7 @@ public class EntityManagerUtil {
 	
 	public static EntityManager geEntityManager() {
 		if(emf == null) {
-			emf = Persistence.createEntityManagerFactory("hibernatejpa");
+			emf = Persistence.createEntityManagerFactory("mercurio");
 			
 		}
 		if(em == null) {
