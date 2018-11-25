@@ -25,6 +25,7 @@ public class CategoriaRepository implements Serializable {
 	}
 
 	public void salvarCategoria(Categoria obj) {
+		
 		try {
 			em.getTransaction().begin();
 			em.persist(obj);

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tbl_lista")
@@ -20,7 +22,8 @@ public class Lista {
 	
 	private String descricao;
 	
-	@Column(name= "data_cadastro")
+	@Column(name= "data_cadastro", columnDefinition="TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 	
 	@Column(name = "valor_total")

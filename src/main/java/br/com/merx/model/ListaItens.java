@@ -13,7 +13,8 @@ public class ListaItens {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer idListaItens;
+	@Column(name = "id_registro")
+	private Integer idRegistro;
 	
 	@Column(name = "fk_produto")
 	private Integer fkProduto;
@@ -27,12 +28,14 @@ public class ListaItens {
 	
 	private Double valor;
 
-	public Integer getIdListaItens() {
-		return idListaItens;
+	
+
+	public Integer getIdRegistro() {
+		return idRegistro;
 	}
 
-	public void setIdListaItens(Integer idListaItens) {
-		this.idListaItens = idListaItens;
+	public void setIdRegistro(Integer idRegistro) {
+		this.idRegistro = idRegistro;
 	}
 
 	public Integer getFkProduto() {
@@ -79,7 +82,7 @@ public class ListaItens {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idListaItens == null) ? 0 : idListaItens.hashCode());
+		result = prime * result + ((idRegistro == null) ? 0 : idRegistro.hashCode());
 		return result;
 	}
 
@@ -92,13 +95,15 @@ public class ListaItens {
 		if (getClass() != obj.getClass())
 			return false;
 		ListaItens other = (ListaItens) obj;
-		if (idListaItens == null) {
-			if (other.idListaItens != null)
+		if (idRegistro == null) {
+			if (other.idRegistro != null)
 				return false;
-		} else if (!idListaItens.equals(other.idListaItens))
+		} else if (!idRegistro.equals(other.idRegistro))
 			return false;
 		return true;
 	}
+
+
 	
 	
 }
