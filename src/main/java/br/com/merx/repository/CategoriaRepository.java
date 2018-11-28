@@ -25,7 +25,7 @@ public class CategoriaRepository implements Serializable {
 	}
 
 	public void salvarCategoria(Categoria obj) {
-		
+
 		try {
 			em.getTransaction().begin();
 			em.persist(obj);
@@ -35,7 +35,6 @@ public class CategoriaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		
 	}
 
 	public void editarCategoria(Categoria obj) {
@@ -48,7 +47,7 @@ public class CategoriaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	public void excluirCategoria(Categoria obj) {
@@ -61,7 +60,7 @@ public class CategoriaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -69,6 +68,14 @@ public class CategoriaRepository implements Serializable {
 		List<Categoria> resultado = new ArrayList<>();
 		Query query = em.createQuery("select c from Categoria c", Categoria.class);
 		resultado = query.getResultList();
+		return resultado;
+	}
+
+	public Categoria buscarCategoriaPorId(Integer id) {
+		Categoria resultado = new Categoria();
+		Query query = em.createQuery("select c from Categoria c where c.id_categoria = :id", Categoria.class)
+				.setParameter("id", id);
+		resultado = (Categoria) query.getSingleResult();
 		return resultado;
 	}
 

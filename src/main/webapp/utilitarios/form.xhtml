@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+
+	<h:form id="formUtilitarios" prependId="false">
+		<p:tabView dynamic="true" prependId="false" style="background: white;">
+			<p:tab title="Categorias">
+				<h3>Cadastro de categoria</h3>
+
+				<h:panelGrid columns="1">
+					<p:outputLabel value="Nome da categoria:" />
+					<p:inputText value="#{utilitarioBean.categoria.categoria}"
+						style="margin-top:5px;" id="nomeCategoria" />
+				</h:panelGrid>
+				<p:commandButton value="Cadastrar"
+					action="#{utilitarioBean.salvarCategoria}" style="margin-top:20px;"
+					update="nomeCategoria tabelaCategoria" />
+
+				<p:dataTable value="#{utilitarioBean.listaCategoria}"
+					var="listaCategoria" style="margin-top:20px;" id="tabelaCategoria"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">
+						Lista de categorias cadastradas
+					</f:facet>
+					<p:column headerText="Nome da Categoria">
+						<h:outputText value="#{listaCategoria.categoria}" />
+					</p:column>
+					<p:column headerText="Ações">
+						<p:commandButton value="Editar" icon="pi pi-search"
+							update="nomeCategoria"
+							action="#{utilitarioBean.editarCategoria()}">
+							<f:setPropertyActionListener value="#{listaCategoria}"
+								target="#{utilitarioBean.categoriaSelecionada}" />
+						</p:commandButton>
+						<p:commandButton action="#{utilitarioBean.excluirCategoria()}"
+							value="Excluir" icon="pi pi-search" update="tabelaCategoria">
+							<f:setPropertyActionListener value="#{listaCategoria}"
+								target="#{utilitarioBean.categoriaSelecionada}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+			<p:tab title="Produtos">
+				<h3>Cadastro de produtos</h3>
+			</p:tab>
+		</p:tabView>
+	</h:form>
+
+
+</h:body>
+</html>

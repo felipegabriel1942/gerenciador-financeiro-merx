@@ -6,13 +6,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
-<h:body>
-	<h:form>
-		<p:outputLabel value="Nome da categoria:"/>
-		<p:inputText value="#{listaComprasBean.categoria.categoria}"/>
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="corpo">
 		
-		<p:commandButton value="Cadastrar" actionListener="#{listaComprasBean.salvarCategoria()}"/>
-	</h:form>
-</h:body>
+			<ui:include src="/utilitarios/form.xhtml" />
+		
+	</ui:define>
+</ui:composition>
 </html>

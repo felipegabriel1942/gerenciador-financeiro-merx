@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body {
+	background-image: url("../resources/img/euro-seem-money-finance.jpg");
+	background-color: #cccccc;
+	height: 700px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active {
+	background-color: #F0F8FF !important;
+}
+

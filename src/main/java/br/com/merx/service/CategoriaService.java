@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import br.com.merx.model.Categoria;
 import br.com.merx.repository.CategoriaRepository;
@@ -35,6 +34,10 @@ public class CategoriaService implements Serializable{
 	public List<Categoria> mostrarTodasAsCategorias() {
 		return cr.bucsarTodasAsCategorias();
 	}
+	
+	public Categoria buscarCategoriaPorId(Integer id) {
+		return cr.buscarCategoriaPorId(id);
+	} 
 	
 	
 	
