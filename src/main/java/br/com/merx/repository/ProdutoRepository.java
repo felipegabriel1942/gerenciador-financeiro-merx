@@ -33,8 +33,6 @@ public class ProdutoRepository implements Serializable {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
-
-		em.close();
 	}
 
 	public void editarProduto(Produto obj) {
@@ -46,8 +44,6 @@ public class ProdutoRepository implements Serializable {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
-
-		em.close();
 	}
 
 	public void excluirProduto(Produto obj) {
@@ -59,8 +55,6 @@ public class ProdutoRepository implements Serializable {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
-
-		em.close();
 	}
 
 	@SuppressWarnings("unchecked")

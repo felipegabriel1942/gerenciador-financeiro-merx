@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,6 +44,11 @@ public class Produto {
 	@Getter
 	@Setter
 	private Integer fkCategoria;
+	
+	@Transient
+	@Getter
+	@Setter
+	private String nomeCategoria;
 
 	
 	@Override

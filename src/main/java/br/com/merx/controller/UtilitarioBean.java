@@ -41,10 +41,18 @@ public class UtilitarioBean implements Serializable {
 	@Getter
 	@Setter
 	private Produto produto = new Produto();
+	
+	@Getter
+	@Setter
+	private Produto produtoSelecionado = new Produto();
 
 	@Getter
 	@Setter
 	private List<Categoria> listaCategoria = new ArrayList<Categoria>();
+	
+	@Getter
+	@Setter
+	private List<Produto> listaProdutos = new ArrayList<>();
 
 	@Getter
 	@Setter
@@ -53,6 +61,7 @@ public class UtilitarioBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		listaCategoria = categoriaService.mostrarTodasAsCategorias();
+		listaProdutos = produtoService.mostrarTodosOsProdutos();
 	}
 
 	public void salvarCategoria() {
@@ -77,6 +86,7 @@ public class UtilitarioBean implements Serializable {
 	public void excluirCategoria() {
 		categoriaService.excluirCategoria(categoriaSelecionada);
 		listaCategoria = categoriaService.mostrarTodasAsCategorias();
+		MensagensUtil.mensagemGenerica("Sucesso!", "Categoria excluída com sucesso.");
 		categoriaSelecionada = new Categoria();
 	}
 
@@ -103,6 +113,7 @@ public class UtilitarioBean implements Serializable {
 					produtoService.editarProduto(produto);
 					MensagensUtil.mensagemGenerica("Sucesso!", "Produto editado.");
 				}
+				listaProdutos = produtoService.mostrarTodosOsProdutos();
 				categoriaMenuProdutoSelecionado = null;
 				produto = new Produto();
 			}
@@ -110,6 +121,18 @@ public class UtilitarioBean implements Serializable {
 			e.printStackTrace();
 			MensagensUtil.mensagemGenerica("Erro!", "Um erro aconteceu ao salvar/editar o produto.");
 		}
+	}
+	
+	public void editarProduto() {
+		produto = produtoSelecionado;
+		categoriaMenuProdutoSelecionado = produto.getFkCategoria();
+	}
+	
+	public void excluirProduto() {
+		produtoService.excluirProduto(produtoSelecionado);
+		listaProdutos = produtoService.mostrarTodosOsProdutos();
+		MensagensUtil.mensagemGenerica("Sucesso!", "Produto excluído com sucesso.");
+		produtoSelecionado = new Produto();
 	}
 
 }

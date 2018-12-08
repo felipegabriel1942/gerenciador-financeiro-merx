@@ -74,7 +74,7 @@ public class CategoriaRepository implements Serializable {
 
 	public Categoria buscarCategoriaPorId(Integer id) {
 		Categoria resultado = new Categoria();
-		Query query = em.createQuery("select c from Categoria c where c.id_categoria = :id", Categoria.class)
+		Query query = em.createQuery("select c from Categoria c where c.idCategoria = :id", Categoria.class)
 				.setParameter("id", id);
 		resultado = (Categoria) query.getSingleResult();
 		return resultado;

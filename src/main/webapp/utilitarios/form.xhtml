@@ -38,19 +38,21 @@
 						<h:outputText value="#{listaCategoria.categoria}" />
 					</p:column>
 					<p:column headerText="Ações">
-						<p:commandButton value="Editar" icon="pi pi-search" update="@form"
+						<p:commandButton value="Editar" update="@form"
 							action="#{utilitarioBean.editarCategoria()}">
 							<f:setPropertyActionListener value="#{listaCategoria}"
 								target="#{utilitarioBean.categoriaSelecionada}" />
 						</p:commandButton>
 						<p:commandButton action="#{utilitarioBean.excluirCategoria()}"
-							value="Excluir" icon="pi pi-search" update="@form">
+							value="Excluir" update="@form">
 							<f:setPropertyActionListener value="#{listaCategoria}"
 								target="#{utilitarioBean.categoriaSelecionada}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 			</p:tab>
+			
+			<!-- GUIA DE PRODUTOS -->			
 			<p:tab title="Produtos">
 				<h3>Cadastro de produtos</h3>
 				<h:panelGrid>
@@ -73,6 +75,39 @@
 				</h:panelGrid>
 				<p:commandButton value="Cadastrar"
 					action="#{utilitarioBean.salvarProduto()}" update="@form" />
+
+				<p:dataTable value="#{utilitarioBean.listaProdutos}" var="produtos">
+					<f:facet name="header">
+						Lista de produtos cadastrados
+					</f:facet>
+					<p:column headerText="Produto">
+						<h:outputText value="#{produtos.produto}" />
+					</p:column>
+
+					<p:column headerText="Categoria">
+						<h:outputText value="#{produtos.nomeCategoria}" />
+					</p:column>
+
+					<p:column headerText="Valor">
+						<h:outputText value="#{produtos.valor}">
+							<f:convertNumber currencySymbol="R$" type="currency"
+								locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Ações">
+						<p:commandButton value="Editar" update="@form"
+							action="#{utilitarioBean.editarProduto()}">
+							<f:setPropertyActionListener value="#{produtos}"
+								target="#{utilitarioBean.produtoSelecionado}" />
+						</p:commandButton>
+						<p:commandButton action="#{utilitarioBean.excluirProduto()}"
+							value="Excluir" update="@form">
+							<f:setPropertyActionListener value="#{produtos}"
+								target="#{utilitarioBean.produtoSelecionado}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
 
 			</p:tab>
 		</p:tabView>
