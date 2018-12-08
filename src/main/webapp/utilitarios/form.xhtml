@@ -10,6 +10,7 @@
 <h:body>
 
 	<h:form id="formUtilitarios" prependId="false">
+		<p:growl id="mensagens" showDetail="true"/>
 		<p:tabView dynamic="true" prependId="false" style="background: white;">
 			<p:tab title="Categorias">
 				<h3>Cadastro de categoria</h3>
@@ -21,7 +22,7 @@
 				</h:panelGrid>
 				<p:commandButton value="Cadastrar"
 					action="#{utilitarioBean.salvarCategoria}" style="margin-top:20px;"
-					update="nomeCategoria tabelaCategoria" />
+					update="@form" />
 				
 				<hr/>
 
@@ -38,13 +39,13 @@
 					</p:column>
 					<p:column headerText="Ações">
 						<p:commandButton value="Editar" icon="pi pi-search"
-							update="nomeCategoria"
+							update="@form"
 							action="#{utilitarioBean.editarCategoria()}">
 							<f:setPropertyActionListener value="#{listaCategoria}"
 								target="#{utilitarioBean.categoriaSelecionada}" />
 						</p:commandButton>
 						<p:commandButton action="#{utilitarioBean.excluirCategoria()}"
-							value="Excluir" icon="pi pi-search" update="tabelaCategoria">
+							value="Excluir" icon="pi pi-search" update="@form">
 							<f:setPropertyActionListener value="#{listaCategoria}"
 								target="#{utilitarioBean.categoriaSelecionada}" />
 						</p:commandButton>
