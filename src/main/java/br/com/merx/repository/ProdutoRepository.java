@@ -64,7 +64,7 @@ public class ProdutoRepository implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Produto> bucsarTodasAsProdutos() {
+	public List<Produto> buscarTodosOsProdutos() {
 		List<Produto> resultado = new ArrayList<>();
 		Query query = em.createQuery("select c from Produto c", Produto.class);
 		resultado = query.getResultList();

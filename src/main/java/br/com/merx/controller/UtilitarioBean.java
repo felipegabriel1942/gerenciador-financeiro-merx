@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.merx.model.Categoria;
+import br.com.merx.model.Produto;
 import br.com.merx.service.CategoriaService;
 import br.com.merx.util.MensagensUtil;
 import lombok.Getter;
@@ -32,6 +33,10 @@ public class UtilitarioBean implements Serializable {
 	@Getter
 	@Setter
 	private Categoria categoriaSelecionada = new Categoria();
+	
+	@Getter
+	@Setter
+	private Produto produto =  new Produto();
 
 	@Getter
 	@Setter
@@ -70,6 +75,25 @@ public class UtilitarioBean implements Serializable {
 
 	public void editarCategoria() {
 		categoria = categoriaSelecionada;
+	}
+	
+	public void salvarProduto() {
+		try {
+			if (produto.getIdProduto() == null) {
+				categoriaService.salvarCategoria(categoria);
+				MensagensUtil.mensagemGenerica("Sucesso!", "Categoria salva.");
+
+			} else {
+				categoriaService.editarCategoria(categoria);
+				MensagensUtil.mensagemGenerica("Sucesso!", "Categoria editada.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			MensagensUtil.mensagemGenerica("Erro!", "Um erro aconteceu ao salvar/editar a categoria.");
+		}
+
+		listaCategoria = categoriaService.mostrarTodasAsCategorias();
+		categoria = new Categoria();
 	}
 
 }
