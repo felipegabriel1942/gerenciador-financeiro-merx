@@ -17,7 +17,8 @@ import br.com.merx.util.EntityManagerUtil;
 public class CategoriaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	private EntityManager em;
 
 	public CategoriaRepository() {

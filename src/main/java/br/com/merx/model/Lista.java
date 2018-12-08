@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "tbl_lista")
 public class Lista {
@@ -18,49 +21,26 @@ public class Lista {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_lista")
+	@Getter
+	@Setter
 	private Integer idLista;
 	
+	@Getter
+	@Setter
 	private String descricao;
 	
 	@Column(name= "data_cadastro", columnDefinition="TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Getter
+	@Setter
 	private Date dataCadastro;
 	
 	@Column(name = "valor_total")
+	@Getter
+	@Setter
 	private Double valorTotal;
 
-	public Integer getIdLista() {
-		return idLista;
-	}
-
-	public void setIdLista(Integer idLista) {
-		this.idLista = idLista;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public Double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

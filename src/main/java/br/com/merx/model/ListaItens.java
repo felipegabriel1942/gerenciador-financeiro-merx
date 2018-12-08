@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "tbl_registro_lista_produto_categoria")
 public class ListaItens {
@@ -14,69 +17,33 @@ public class ListaItens {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_registro")
+	@Getter
+	@Setter
 	private Integer idRegistro;
 	
 	@Column(name = "fk_produto")
+	@Getter
+	@Setter
 	private Integer fkProduto;
 	
 	@Column(name = "fk_lista")
+	@Getter
+	@Setter
 	private Integer fkLista;
 	
+	@Getter
+	@Setter
 	private String produto;
 	
+	@Getter
+	@Setter
 	private String categoria;
 	
+	@Getter
+	@Setter
 	private Double valor;
 
 	
-
-	public Integer getIdRegistro() {
-		return idRegistro;
-	}
-
-	public void setIdRegistro(Integer idRegistro) {
-		this.idRegistro = idRegistro;
-	}
-
-	public Integer getFkProduto() {
-		return fkProduto;
-	}
-
-	public void setFkProduto(Integer fkProduto) {
-		this.fkProduto = fkProduto;
-	}
-
-	public Integer getFkLista() {
-		return fkLista;
-	}
-
-	public void setFkLista(Integer fkLista) {
-		this.fkLista = fkLista;
-	}
-
-	public String getProduto() {
-		return produto;
-	}
-
-	public void setProduto(String produto) {
-		this.produto = produto;
-	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
 
 	@Override
 	public int hashCode() {

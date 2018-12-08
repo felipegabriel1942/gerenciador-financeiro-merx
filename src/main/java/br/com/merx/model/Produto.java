@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "tbl_produto")
 public class Produto {
@@ -18,59 +21,30 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name="id_produto")
+	@Getter
+	@Setter
 	private Integer idProduto;
 	
+	@Getter
+	@Setter
 	private String produto;
 	
+	@Getter
+	@Setter
 	private Double valor;
 	
 	@Column(name="data_cadastro", columnDefinition="TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Getter
+	@Setter
 	private Date dataCadastro;
 	
 	@Column(name="fk_categoria")
+	@Getter
+	@Setter
 	private Integer fkCategoria;
 
-	public Integer getIdProduto() {
-		return idProduto;
-	}
-
-	public void setId_produto(Integer idProduto) {
-		this.idProduto = idProduto;
-	}
-
-	public String getProduto() {
-		return produto;
-	}
-
-	public void setProduto(String produto) {
-		this.produto = produto;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public Integer getFkCategoria() {
-		return fkCategoria;
-	}
-
-	public void setFkCategoria(Integer fkCategoria) {
-		this.fkCategoria = fkCategoria;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

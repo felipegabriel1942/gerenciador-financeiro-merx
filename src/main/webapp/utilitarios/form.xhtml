@@ -22,6 +22,8 @@
 				<p:commandButton value="Cadastrar"
 					action="#{utilitarioBean.salvarCategoria}" style="margin-top:20px;"
 					update="nomeCategoria tabelaCategoria" />
+				
+				<hr/>
 
 				<p:dataTable value="#{utilitarioBean.listaCategoria}"
 					var="listaCategoria" style="margin-top:20px;" id="tabelaCategoria"
