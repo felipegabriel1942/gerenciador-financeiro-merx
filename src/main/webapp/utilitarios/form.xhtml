@@ -55,7 +55,8 @@
 				<h3>Cadastro de produtos</h3>
 				<h:panelGrid>
 					<p:outputLabel value="Categoria do produto:" />
-					<p:selectOneMenu>
+					<p:selectOneMenu
+						value="#{utilitarioBean.categoriaMenuProdutoSelecionado}">
 						<f:selectItem itemLabel="Selecione uma categoria" />
 						<f:selectItems value="#{utilitarioBean.listaCategoria}"
 							var="categorias" itemLabel="#{categorias.categoria}"
@@ -70,7 +71,8 @@
 						value="#{utilitarioBean.produto.valor}" />
 
 				</h:panelGrid>
-				<p:commandButton value="Cadastrar" action="#{utilitarioBean}"/>
+				<p:commandButton value="Cadastrar"
+					action="#{utilitarioBean.salvarProduto()}" update="@form" />
 
 			</p:tab>
 		</p:tabView>

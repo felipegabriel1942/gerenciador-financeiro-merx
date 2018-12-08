@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.merx.model.Categoria;
 import br.com.merx.model.Produto;
 import br.com.merx.service.CategoriaService;
+import br.com.merx.service.ProdutoService;
 import br.com.merx.util.MensagensUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,9 @@ public class UtilitarioBean implements Serializable {
 	@Setter
 	private CategoriaService categoriaService = new CategoriaService();
 
+	@Getter
+	@Setter
+	private ProdutoService produtoService = new ProdutoService();
 
 	@Getter
 	@Setter
@@ -33,14 +37,18 @@ public class UtilitarioBean implements Serializable {
 	@Getter
 	@Setter
 	private Categoria categoriaSelecionada = new Categoria();
-	
+
 	@Getter
 	@Setter
-	private Produto produto =  new Produto();
+	private Produto produto = new Produto();
 
 	@Getter
 	@Setter
 	private List<Categoria> listaCategoria = new ArrayList<Categoria>();
+
+	@Getter
+	@Setter
+	private Integer categoriaMenuProdutoSelecionado;
 
 	@PostConstruct
 	public void init() {
@@ -58,13 +66,12 @@ public class UtilitarioBean implements Serializable {
 				categoriaService.editarCategoria(categoria);
 				MensagensUtil.mensagemGenerica("Sucesso!", "Categoria editada.");
 			}
+			listaCategoria = categoriaService.mostrarTodasAsCategorias();
+			categoria = new Categoria();
 		} catch (Exception e) {
 			e.printStackTrace();
 			MensagensUtil.mensagemGenerica("Erro!", "Um erro aconteceu ao salvar/editar a categoria.");
 		}
-
-		listaCategoria = categoriaService.mostrarTodasAsCategorias();
-		categoria = new Categoria();
 	}
 
 	public void excluirCategoria() {
@@ -76,24 +83,33 @@ public class UtilitarioBean implements Serializable {
 	public void editarCategoria() {
 		categoria = categoriaSelecionada;
 	}
-	
+
 	public void salvarProduto() {
 		try {
-			if (produto.getIdProduto() == null) {
-				categoriaService.salvarCategoria(categoria);
-				MensagensUtil.mensagemGenerica("Sucesso!", "Categoria salva.");
-
+			if (categoriaMenuProdutoSelecionado == null) {
+				MensagensUtil.mensagemGenerica("Atenção!", "Por favor, Selecione uma categoria.");
+			} else if ("".equals(produto.getProduto())) {
+				MensagensUtil.mensagemGenerica("Atenção!", "Por favor, Informe o nome do produto.");
+			} else if (produto.getValor() == null) {
+				MensagensUtil.mensagemGenerica("Atenção!", "Por favor, Informe o valor do produto.");
 			} else {
-				categoriaService.editarCategoria(categoria);
-				MensagensUtil.mensagemGenerica("Sucesso!", "Categoria editada.");
+				if (produto.getIdProduto() == null) {
+					produto.setFkCategoria(categoriaMenuProdutoSelecionado);
+					produtoService.salvarProduto(produto);
+					MensagensUtil.mensagemGenerica("Sucesso!", "Produto cadastrado.");
+
+				} else {
+					produto.setFkCategoria(categoriaMenuProdutoSelecionado);
+					produtoService.editarProduto(produto);
+					MensagensUtil.mensagemGenerica("Sucesso!", "Produto editado.");
+				}
+				categoriaMenuProdutoSelecionado = null;
+				produto = new Produto();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MensagensUtil.mensagemGenerica("Erro!", "Um erro aconteceu ao salvar/editar a categoria.");
+			MensagensUtil.mensagemGenerica("Erro!", "Um erro aconteceu ao salvar/editar o produto.");
 		}
-
-		listaCategoria = categoriaService.mostrarTodasAsCategorias();
-		categoria = new Categoria();
 	}
 
 }
