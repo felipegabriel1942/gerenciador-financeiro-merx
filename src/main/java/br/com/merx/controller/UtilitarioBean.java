@@ -57,11 +57,29 @@ public class UtilitarioBean implements Serializable {
 	@Getter
 	@Setter
 	private Integer categoriaMenuProdutoSelecionado;
-
+	
+	@Getter
+	@Setter
+	private boolean renderizarCadastroEdicaoCategoria;
+	
+	@Getter
+	@Setter
+	private boolean renderizarListaCategoria;
+	
+	@Getter
+	@Setter
+	private String txtBotaoCategoria;
+	
+	@Getter
+	@Setter
+	private String txtTituloCategoria;
+	
+	
 	@PostConstruct
 	public void init() {
 		listaCategoria = categoriaService.mostrarTodasAsCategorias();
 		listaProdutos = produtoService.mostrarTodosOsProdutos();
+		
 	}
 
 	public void salvarCategoria() {
@@ -73,7 +91,9 @@ public class UtilitarioBean implements Serializable {
 
 			} else {
 				categoriaService.editarCategoria(categoria);
+				mostrarLista();
 				MensagensUtil.mensagemGenerica("Sucesso!", "Categoria editada.");
+				
 			}
 			listaCategoria = categoriaService.mostrarTodasAsCategorias();
 			categoria = new Categoria();
@@ -92,6 +112,7 @@ public class UtilitarioBean implements Serializable {
 
 	public void editarCategoria() {
 		categoria = categoriaSelecionada;
+		mostrarEdicao();
 	}
 
 	public void salvarProduto() {
@@ -125,6 +146,7 @@ public class UtilitarioBean implements Serializable {
 	
 	public void editarProduto() {
 		produto = produtoSelecionado;
+		produtoSelecionado = new Produto();
 		categoriaMenuProdutoSelecionado = produto.getFkCategoria();
 	}
 	
@@ -133,6 +155,29 @@ public class UtilitarioBean implements Serializable {
 		listaProdutos = produtoService.mostrarTodosOsProdutos();
 		MensagensUtil.mensagemGenerica("Sucesso!", "Produto excluído com sucesso.");
 		produtoSelecionado = new Produto();
+	}
+	
+	public void mostrarCadastro() {
+		renderizarCadastroEdicaoCategoria = true;
+		renderizarListaCategoria = false;
+		txtBotaoCategoria = "Cadastrar";
+		txtTituloCategoria = "Cadastro de categoria";
+		categoria = new Categoria();
+		categoriaSelecionada = new Categoria();
+	}
+	
+	public void mostrarLista() {
+		renderizarCadastroEdicaoCategoria = false;
+		renderizarListaCategoria = true;
+		categoria = new Categoria();
+		categoriaSelecionada = new Categoria();
+	}
+	
+	public void mostrarEdicao() {
+		renderizarCadastroEdicaoCategoria = true;
+		renderizarListaCategoria = false;
+		txtBotaoCategoria = "Editar";
+		txtTituloCategoria = "Edição de categoria";
 	}
 
 }
