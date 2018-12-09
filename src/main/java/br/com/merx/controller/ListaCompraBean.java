@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -37,6 +38,10 @@ public class ListaCompraBean implements Serializable {
 
 	@Getter
 	@Setter
+	private ListaItens listDeComprasProdutoExclusao = new ListaItens();
+
+	@Getter
+	@Setter
 	private Produto produtoPesquisado = new Produto();
 
 	@Getter
@@ -57,13 +62,39 @@ public class ListaCompraBean implements Serializable {
 
 	@Getter
 	@Setter
-	private Integer indexProdutoSelecionadoLista;
+	private boolean renderizarInicioLista;
+
+	@Getter
+	@Setter
+	private int indexProdutoSelecionadoLista;
+
+	@Getter
+	@Setter
+	private double valorTotalLista;
+
+	@Getter
+	@Setter
+	private String descricaoLista;
+
+	@PostConstruct
+	public void init() {
+		valorTotalLista = 0.0;
+	}
 
 	public List<Produto> buscarProdutoPorNome(String nome) {
 
 		listaProdutos = listaComprasService.buscarProdutosPorNome(nome);
 
 		return listaProdutos;
+	}
+
+	public void criarLista() {
+		if ("".equals(descricaoLista)) {
+			MensagensUtil.mensagemGenerica("Atenção!", "Dê um nome para a lista");
+		} else {
+			renderizarInicioLista = true;
+		}
+
 	}
 
 	public void adicionarProdutoLista() {
@@ -81,7 +112,10 @@ public class ListaCompraBean implements Serializable {
 			lista.setQuantidade(1);
 			lista.setValor(produtoSelecionado.getValor());
 			lista.setValorTotal((produtoSelecionado.getValor()));
+			lista.setCategoria(
+					listaComprasService.buscarCategoriaPorId(produtoSelecionado.getFkCategoria()).getCategoria());
 			listaDeComprasProduto.add(lista);
+			ajusteDoValorTotalDaLista();
 			produtoSelecionado = new Produto();
 
 		}
@@ -91,6 +125,27 @@ public class ListaCompraBean implements Serializable {
 
 		}
 
+	}
+
+	public void excluirProdutoLista() {
+
+		pegarIndexProduto();
+		listaDeComprasProduto.remove(indexProdutoSelecionadoLista);
+		ajusteDoValorTotalDaLista();
+		if (listaDeComprasProduto.isEmpty()) {
+			renderizarLista = false;
+		}
+
+	}
+
+	public void salvarLista() {
+		listaComprasService.salvarListaDeCompras(listaDeComprasProduto, valorTotalLista, descricaoLista);
+		renderizarLista = false;
+		renderizarInicioLista = false;
+		MensagensUtil.mensagemGenerica("Sucesso!", "Lista foi cadastrada");
+		listaDeComprasProduto.clear();
+		valorTotalLista = 0.0;
+		descricaoLista = "";
 	}
 
 	public boolean verificarConteudoLista(Integer codProduto) {
@@ -110,12 +165,20 @@ public class ListaCompraBean implements Serializable {
 		listaDeComprasProduto.get(indexProdutoSelecionadoLista)
 				.setValorTotal(listaDeComprasProduto.get(indexProdutoSelecionadoLista).getQuantidade()
 						* listaDeComprasProduto.get(indexProdutoSelecionadoLista).getValor());
+		ajusteDoValorTotalDaLista();
 	}
 
 	public Integer pegarIndexProduto() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
 		return indexProdutoSelecionadoLista = Integer.parseInt(params.get("index"));
+	}
+
+	public void ajusteDoValorTotalDaLista() {
+		valorTotalLista = 0.0;
+		for (int i = 0; i < listaDeComprasProduto.size(); i++) {
+			valorTotalLista = valorTotalLista + listaDeComprasProduto.get(i).getValorTotal();
+		}
 	}
 
 }

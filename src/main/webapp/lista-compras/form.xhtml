@@ -15,10 +15,19 @@
 			<h3>Lista de compras</h3>
 			<hr />
 			<h:panelGrid columns="2">
-				<p:commandButton value="Criar Lista" icon="fa fa-plus" />
+				<p:commandButton value="Criar Lista" icon="fa fa-plus"
+					onclick="PF('tituloLista').show();" />
+				<p:dialog header="Dê um nome para a lista" widgetVar="tituloLista"
+					modal="true">
+					<p:outputLabel value="Nome lista: " />
+					<h:inputText value="#{listaCompraBean.descricaoLista}" />
+					<p:commandButton value="Criar" onclick="PF('tituloLista').hide();"
+						actionListener="#{listaCompraBean.criarLista()}" update="@form" />
+				</p:dialog>
 			</h:panelGrid>
 
-			<p:panel>
+			<p:panel rendered="#{listaCompraBean.renderizarInicioLista}">
+				<h:outputText value="#{listaCompraBean.descricaoLista}" />
 				<div class="ui-g">
 					<div class="ui-g-6">
 						<p:outputLabel value="Pesquisar produto: " />
@@ -30,11 +39,18 @@
 							itemValue="#{produto}" />
 
 					</div>
-					<div class="ui-g-4">
+					<div class="ui-g-1">
 						<p:commandButton icon="fa fa-plus"
 							action="#{listaCompraBean.adicionarProdutoLista()}"
 							update="@form" title="Adicionar produto" />
 					</div>
+					<div class="ui-g-2"></div>
+					<div class="ui-g-3">
+						<p:outputLabel value="Valor total da lista: "
+							style="font-weight:bold;" />
+						<h:outputText value="#{listaCompraBean.valorTotalLista}" />
+					</div>
+
 				</div>
 
 				<p:panel rendered="#{listaCompraBean.renderizarLista}">
@@ -43,26 +59,35 @@
 							<th class="tabela-lista-header">Nome do produto</th>
 							<th class="tabela-lista-header">Quantidade</th>
 							<th class="tabela-lista-header">Valor</th>
+							<th class="tabela-lista-header">Excluir</th>
 						</tr>
 						<tbody>
 							<ui:repeat var="listaDeProdutos"
 								value="#{listaCompraBean.listaDeComprasProduto}"
 								varStatus="status">
 								<tr>
-									<td class="tabela-lista-linha-impar" width="80%">#{listaDeProdutos.produto}</td>
+									<td class="tabela-lista-linha-impar" width="70%">#{listaDeProdutos.produto}</td>
 									<td class="tabela-lista-linha-impar" width="10%"><p:inputNumber
 											size="1" decimalPlaces="0"
 											value="#{listaDeProdutos.quantidade}">
 											<f:param name="index" value="#{status.index}" />
 											<p:ajax event="keyup"
 												listener="#{listaCompraBean.ajusteQuantidadeProduto()}"
-												delay="500" update="@form"/>
+												delay="500" update="@form" />
 										</p:inputNumber></td>
 									<td class="tabela-lista-linha-impar" width="10%">#{listaDeProdutos.valorTotal}</td>
+									<td><p:commandButton icon="fa fa-remove"
+											action="#{listaCompraBean.excluirProdutoLista()}"
+											update="@form">
+											<f:param name="index" value="#{status.index}" />
+										</p:commandButton></td>
 								</tr>
 							</ui:repeat>
 						</tbody>
 					</table>
+					<p:commandButton value="Salvar" icon="fa fa-plus-circle"
+						action="#{listaCompraBean.salvarLista()}" update="@form" />
+
 				</p:panel>
 			</p:panel>
 		</p:panel>
