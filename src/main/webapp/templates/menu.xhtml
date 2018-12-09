@@ -9,15 +9,16 @@
 <h:head></h:head>
 <h:body>
 
-	<h:form >
+	<h:form>
 		<p:menu toggleable="true">
-			<p:menuitem value="Receitas" />
-			<p:menuitem value="Despesas" />
-			<p:menuitem value="Contas a pagar" />
-			<p:menuitem value="Resultado líquido" />
-			<p:menuitem value="Lista de Compras" />
+			<p:menuitem value="Receitas" icon="fa fa-money" />
+			<p:menuitem value="Despesas" icon="fa fa-frown-o" />
+			<p:menuitem value="Contas a pagar" icon="fa fa-credit-card" />
+			<p:menuitem value="Resultado líquido" icon="fa fa-dollar" />
+			<p:menuitem value="Lista de Compras"
+				outcome="/lista-compras/lista.xhtml" icon="fa fa-list-ol" />
 			<p:menuitem value="Utilitarios"
-				outcome="/utilitarios/utilitarios.xhtml" />
+				outcome="/utilitarios/utilitarios.xhtml" icon="fa fa-wrench" />
 		</p:menu>
 	</h:form>
 

@@ -60,7 +60,16 @@ public class ProdutoRepository implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<Produto> buscarTodosOsProdutos() {
 		List<Produto> resultado = new ArrayList<>();
-		Query query = em.createQuery("select c from Produto c", Produto.class);
+		Query query = em.createQuery("select p from Produto p", Produto.class);
+		resultado = query.getResultList();
+		return resultado;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Produto> buscarProdutoPorNome(String nome) {
+		List<Produto> resultado = new ArrayList<>();
+		Query query = em.createQuery("select p from Produto p where p.produto like :nomeProduto", Produto.class)
+				.setParameter("nomeProduto", "%" + nome + "%");
 		resultado = query.getResultList();
 		return resultado;
 	}

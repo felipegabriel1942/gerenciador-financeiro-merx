@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+
+	<h:form id="formListaCompras" prependId="false">
+		<p:growl id="mensagens" showDetail="true" />
+		<p:panel style="background: white;">
+			<h3>Lista de compras</h3>
+			<hr />
+			<h:panelGrid columns="2">
+				<p:commandButton value="Criar Lista" icon="fa fa-plus" />
+			</h:panelGrid>
+
+			<p:panel>
+				<div class="ui-g">
+					<div class="ui-g-5">
+						<p:outputLabel value="Pesquisar: " />
+						<p:autoComplete value="#{listaCompraBean.produtoSelecionado}"
+							completeMethod="#{listaCompraBean.buscarProdutoPorNome}"
+							var="produto" itemLabel="#{produto.produto}"
+							converter="#{listaCompraBean.produtoConverter
+							}"
+							itemValue="#{produto}" />
+
+					</div>
+					<div class="ui-g-4">
+						<p:commandButton icon="fa fa-plus"
+							action="#{listaCompraBean.adicionarProdutoLista()}"
+							update="@form" title="Adicionar produto" />
+					</div>
+				</div>
+
+				<p:panel rendered="#{listaCompraBean.renderizarLista}">
+					<table class="tabela-lista">
+						<tr>
+							<th class="tabela-lista-header">Nome do produto</th>
+							<th class="tabela-lista-header">Quantidade</th>
+							<th class="tabela-lista-header">Valor</th>
+						</tr>
+						<tbody>
+							<ui:repeat var="listaDeProdutos"
+								value="#{listaCompraBean.listaDeComprasProduto}"
+								varStatus="status">
+								<tr>
+									<td class="tabela-lista-linha-impar" width="60%">#{listaDeProdutos.produto}</td>
+									<td class="tabela-lista-linha-impar" width="10%"><p:inputNumber
+											size="1" decimalPlaces="0" /></td>
+									<td class="tabela-lista-linha-impar" width="30%">#{listaDeProdutos.valor}</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</p:panel>
+			</p:panel>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

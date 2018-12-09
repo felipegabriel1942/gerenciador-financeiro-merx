@@ -34,7 +34,7 @@ public class ListaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	public void editarLista(Lista obj) {
@@ -47,7 +47,7 @@ public class ListaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	public void excluirLista(Lista obj) {
@@ -60,7 +60,7 @@ public class ListaRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	@SuppressWarnings("unchecked")

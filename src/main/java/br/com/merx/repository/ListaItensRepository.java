@@ -34,7 +34,7 @@ public class ListaItensRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+	
 	}
 
 	public void editarListaItens(ListaItens obj) {
@@ -47,7 +47,7 @@ public class ListaItensRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	public void excluirListaItens(ListaItens obj) {
@@ -60,11 +60,11 @@ public class ListaItensRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		em.close();
+		
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ListaItens> bucsarTodasAsListaItenss() {
+	public List<ListaItens> buscarTodasAsListaItenss() {
 		List<ListaItens> resultado = new ArrayList<>();
 		Query query = em.createQuery("select c from ListaItens c", ListaItens.class);
 		resultado = query.getResultList();
