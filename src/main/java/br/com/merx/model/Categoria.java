@@ -31,10 +31,7 @@ public class Categoria implements Serializable{
 	
 	@Getter
 	@Setter
-	private String categoria;
-
-
-	
+	private String categoria;	
 
 	@Override
 	public int hashCode() {

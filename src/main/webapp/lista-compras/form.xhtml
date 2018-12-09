@@ -20,8 +20,8 @@
 
 			<p:panel>
 				<div class="ui-g">
-					<div class="ui-g-5">
-						<p:outputLabel value="Pesquisar: " />
+					<div class="ui-g-6">
+						<p:outputLabel value="Pesquisar produto: " />
 						<p:autoComplete value="#{listaCompraBean.produtoSelecionado}"
 							completeMethod="#{listaCompraBean.buscarProdutoPorNome}"
 							var="produto" itemLabel="#{produto.produto}"
@@ -49,10 +49,16 @@
 								value="#{listaCompraBean.listaDeComprasProduto}"
 								varStatus="status">
 								<tr>
-									<td class="tabela-lista-linha-impar" width="60%">#{listaDeProdutos.produto}</td>
+									<td class="tabela-lista-linha-impar" width="80%">#{listaDeProdutos.produto}</td>
 									<td class="tabela-lista-linha-impar" width="10%"><p:inputNumber
-											size="1" decimalPlaces="0" /></td>
-									<td class="tabela-lista-linha-impar" width="30%">#{listaDeProdutos.valor}</td>
+											size="1" decimalPlaces="0"
+											value="#{listaDeProdutos.quantidade}">
+											<f:param name="index" value="#{status.index}" />
+											<p:ajax event="keyup"
+												listener="#{listaCompraBean.ajusteQuantidadeProduto()}"
+												delay="500" update="@form"/>
+										</p:inputNumber></td>
+									<td class="tabela-lista-linha-impar" width="10%">#{listaDeProdutos.valorTotal}</td>
 								</tr>
 							</ui:repeat>
 						</tbody>

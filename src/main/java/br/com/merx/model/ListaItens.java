@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tbl_registro_lista_produto_categoria")
+@Table(name = "tbl_lista_item")
 public class ListaItens {
 	
 	@Id
@@ -42,6 +42,15 @@ public class ListaItens {
 	@Getter
 	@Setter
 	private Double valor;
+	
+	@Getter
+	@Setter
+	private Integer quantidade;
+	
+	@Column(name = "valor_total")
+	@Getter
+	@Setter
+	private Double valorTotal;
 
 	
 
