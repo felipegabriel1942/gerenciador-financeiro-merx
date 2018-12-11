@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ListaItens {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_registro")
 	@Getter
 	@Setter

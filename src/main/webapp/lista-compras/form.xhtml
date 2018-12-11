@@ -17,6 +17,10 @@
 			<h:panelGrid columns="2">
 				<p:commandButton value="Criar Lista" icon="fa fa-plus"
 					onclick="PF('tituloLista').show();" />
+				<p:commandButton value="Listas Cadastradas" icon="fa fa-plus"
+					action="#{listaCompraBean.mostrarListasCadastradas()}"
+					update="@form" />
+
 				<p:dialog header="Dê um nome para a lista" widgetVar="tituloLista"
 					modal="true">
 					<p:outputLabel value="Nome lista: " />
@@ -27,6 +31,7 @@
 			</h:panelGrid>
 
 			<p:panel rendered="#{listaCompraBean.renderizarInicioLista}">
+				<h:outputLabel value="Nome da lista: " style="font-weight: bold;" />
 				<h:outputText value="#{listaCompraBean.descricaoLista}" />
 				<div class="ui-g">
 					<div class="ui-g-6">
@@ -34,8 +39,7 @@
 						<p:autoComplete value="#{listaCompraBean.produtoSelecionado}"
 							completeMethod="#{listaCompraBean.buscarProdutoPorNome}"
 							var="produto" itemLabel="#{produto.produto}"
-							converter="#{listaCompraBean.produtoConverter
-							}"
+							converter="#{listaCompraBean.produtoConverter}"
 							itemValue="#{produto}" />
 
 					</div>
@@ -44,11 +48,14 @@
 							action="#{listaCompraBean.adicionarProdutoLista()}"
 							update="@form" title="Adicionar produto" />
 					</div>
-					<div class="ui-g-2"></div>
-					<div class="ui-g-3">
+					
+					<div class="ui-g-5">
 						<p:outputLabel value="Valor total da lista: "
 							style="font-weight:bold;" />
-						<h:outputText value="#{listaCompraBean.valorTotalLista}" />
+						<h:outputText value="#{listaCompraBean.valorTotalLista}">
+							<f:convertNumber currencySymbol="R$" type="currency"
+								locale="pt_BR" />
+						</h:outputText>
 					</div>
 
 				</div>
@@ -66,7 +73,7 @@
 								value="#{listaCompraBean.listaDeComprasProduto}"
 								varStatus="status">
 								<tr>
-									<td class="tabela-lista-linha-impar" width="70%">#{listaDeProdutos.produto}</td>
+									<td class="tabela-lista-linha-impar" width="60%">#{listaDeProdutos.produto}</td>
 									<td class="tabela-lista-linha-impar" width="10%"><p:inputNumber
 											size="1" decimalPlaces="0"
 											value="#{listaDeProdutos.quantidade}">
@@ -75,7 +82,11 @@
 												listener="#{listaCompraBean.ajusteQuantidadeProduto()}"
 												delay="500" update="@form" />
 										</p:inputNumber></td>
-									<td class="tabela-lista-linha-impar" width="10%">#{listaDeProdutos.valorTotal}</td>
+									<td class="tabela-lista-linha-impar" width="20%"><h:outputText
+											value="#{listaDeProdutos.valorTotal}">
+											<f:convertNumber currencySymbol="R$" type="currency"
+												locale="pt_BR" />
+										</h:outputText></td>
 									<td><p:commandButton icon="fa fa-remove"
 											action="#{listaCompraBean.excluirProdutoLista()}"
 											update="@form">
@@ -89,6 +100,35 @@
 						action="#{listaCompraBean.salvarLista()}" update="@form" />
 
 				</p:panel>
+
+
+			</p:panel>
+
+			<!-- LISTAS CADASTRADAS -->
+			<p:panel rendered="#{listaCompraBean.renderizarListasCadastradas}">
+				<p:dataTable value="#{listaCompraBean.listasDeComprasCadastradas}"
+					var="listaCompras">
+					<f:facet name="header">
+						Listas cadastradas
+					</f:facet>
+					<p:column headerText="Nome da lista">
+						<h:outputText value="#{listaCompras.descricao}" />
+					</p:column>
+					<p:column headerText="Valor total">
+						<h:outputText value="#{listaCompras.valorTotal}">
+							<f:convertNumber currencySymbol="R$" type="currency"
+								locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Data de criação da lista">
+						<h:outputText value="#{listaCompras.dataCadastro}">
+							<f:convertDateTime locale="pt-BR" dateStyle="long"
+								pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
 			</p:panel>
 		</p:panel>
 	</h:form>

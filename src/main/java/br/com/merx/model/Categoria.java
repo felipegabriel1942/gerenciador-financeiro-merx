@@ -16,14 +16,12 @@ import lombok.Setter;
 @Table(name = "tbl_categoria")
 public class Categoria implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	@Setter
 	@Column(name="id_categoria")

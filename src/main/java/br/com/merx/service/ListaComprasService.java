@@ -1,6 +1,7 @@
 package br.com.merx.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -43,6 +44,7 @@ public class ListaComprasService implements Serializable {
 		Lista lista = new Lista();
 		lista.setDescricao(descricao);
 		lista.setValorTotal(valorTotal);
+		lista.setDataCadastro(new Date());
 		lr.salvarLista(lista);
 
 		for (int i = 0; i < listaDeItens.size(); i++) {
@@ -65,5 +67,9 @@ public class ListaComprasService implements Serializable {
 	
 	public Categoria buscarCategoriaPorId(Integer id) {
 		return cr.buscarCategoriaPorId(id);
+	}
+	
+	public List<Lista> mostrarListasCadastradas(){
+		return lr.bucsarTodasAsListas();
 	}
 }

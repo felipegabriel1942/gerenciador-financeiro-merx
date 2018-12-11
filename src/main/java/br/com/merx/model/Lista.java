@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Lista {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_lista")
 	@Getter
 	@Setter

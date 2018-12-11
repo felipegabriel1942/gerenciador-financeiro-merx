@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.merx.converter.ProdutoConverter;
+import br.com.merx.model.Lista;
 import br.com.merx.model.ListaItens;
 import br.com.merx.model.Produto;
 import br.com.merx.service.ListaComprasService;
@@ -63,6 +64,10 @@ public class ListaCompraBean implements Serializable {
 	@Getter
 	@Setter
 	private boolean renderizarInicioLista;
+	
+	@Getter
+	@Setter
+	private boolean renderizarListasCadastradas;
 
 	@Getter
 	@Setter
@@ -75,6 +80,10 @@ public class ListaCompraBean implements Serializable {
 	@Getter
 	@Setter
 	private String descricaoLista;
+	
+	@Getter
+	@Setter
+	private List<Lista> listasDeComprasCadastradas = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
@@ -93,6 +102,7 @@ public class ListaCompraBean implements Serializable {
 			MensagensUtil.mensagemGenerica("Atenção!", "Dê um nome para a lista");
 		} else {
 			renderizarInicioLista = true;
+			renderizarListasCadastradas = false;
 		}
 
 	}
@@ -125,6 +135,13 @@ public class ListaCompraBean implements Serializable {
 
 		}
 
+	}
+	
+	public void mostrarListasCadastradas() {
+		listasDeComprasCadastradas = listaComprasService.mostrarListasCadastradas();
+		renderizarListasCadastradas = true;
+		renderizarLista = false;
+		renderizarInicioLista = false;
 	}
 
 	public void excluirProdutoLista() {
