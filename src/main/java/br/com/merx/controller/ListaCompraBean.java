@@ -59,12 +59,16 @@ public class ListaCompraBean implements Serializable {
 
 	@Getter
 	@Setter
+	private Lista listaDeComprasSelecionada = new Lista();
+
+	@Getter
+	@Setter
 	private boolean renderizarLista;
 
 	@Getter
 	@Setter
 	private boolean renderizarInicioLista;
-	
+
 	@Getter
 	@Setter
 	private boolean renderizarListasCadastradas;
@@ -80,7 +84,7 @@ public class ListaCompraBean implements Serializable {
 	@Getter
 	@Setter
 	private String descricaoLista;
-	
+
 	@Getter
 	@Setter
 	private List<Lista> listasDeComprasCadastradas = new ArrayList<>();
@@ -101,7 +105,9 @@ public class ListaCompraBean implements Serializable {
 		if ("".equals(descricaoLista)) {
 			MensagensUtil.mensagemGenerica("Atenção!", "Dê um nome para a lista");
 		} else {
+			listaDeComprasProduto.clear();
 			renderizarInicioLista = true;
+			renderizarLista =  false;
 			renderizarListasCadastradas = false;
 		}
 
@@ -136,7 +142,7 @@ public class ListaCompraBean implements Serializable {
 		}
 
 	}
-	
+
 	public void mostrarListasCadastradas() {
 		listasDeComprasCadastradas = listaComprasService.mostrarListasCadastradas();
 		renderizarListasCadastradas = true;
@@ -163,6 +169,13 @@ public class ListaCompraBean implements Serializable {
 		listaDeComprasProduto.clear();
 		valorTotalLista = 0.0;
 		descricaoLista = "";
+	}
+
+	public void editarLista() {
+		listaDeComprasProduto = listaComprasService.buscarItensListaPorPKLista(listaDeComprasSelecionada.getIdLista());
+		renderizarListasCadastradas = false;
+		renderizarLista = true;
+		renderizarInicioLista = true;
 	}
 
 	public boolean verificarConteudoLista(Integer codProduto) {

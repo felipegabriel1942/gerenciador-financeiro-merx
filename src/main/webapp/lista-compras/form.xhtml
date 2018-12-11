@@ -48,7 +48,7 @@
 							action="#{listaCompraBean.adicionarProdutoLista()}"
 							update="@form" title="Adicionar produto" />
 					</div>
-					
+
 					<div class="ui-g-5">
 						<p:outputLabel value="Valor total da lista: "
 							style="font-weight:bold;" />
@@ -128,6 +128,13 @@
 						</h:outputText>
 					</p:column>
 
+					<p:column headerText="Ações">
+						<p:commandButton icon="fa fa-pencil-square" title="Editar"
+							action="#{listaCompraBean.editarLista()}" update="@form">
+							<f:setPropertyActionListener value="#{listaCompras}"
+								target="#{listaCompraBean.listaDeComprasSelecionada}" />
+						</p:commandButton>
+					</p:column>
 				</p:dataTable>
 			</p:panel>
 		</p:panel>

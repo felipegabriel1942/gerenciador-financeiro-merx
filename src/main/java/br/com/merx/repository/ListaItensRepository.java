@@ -34,7 +34,6 @@ public class ListaItensRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-	
 	}
 
 	public void editarListaItens(ListaItens obj) {
@@ -47,7 +46,6 @@ public class ListaItensRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		
 	}
 
 	public void excluirListaItens(ListaItens obj) {
@@ -60,7 +58,6 @@ public class ListaItensRepository implements Serializable {
 			em.getTransaction().rollback();
 		}
 
-		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -71,4 +68,12 @@ public class ListaItensRepository implements Serializable {
 		return resultado;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<ListaItens> buscarItensListaPorPKLista(Integer codLista) {
+		List<ListaItens> resultado = new ArrayList<>();
+		Query query = em.createQuery("select c from ListaItens c where c.fkLista = :codLista", ListaItens.class)
+				.setParameter("codLista", codLista);
+		resultado = query.getResultList();
+		return resultado;
+	}
 }

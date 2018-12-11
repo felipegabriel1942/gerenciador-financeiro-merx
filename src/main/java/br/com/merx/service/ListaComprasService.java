@@ -72,4 +72,8 @@ public class ListaComprasService implements Serializable {
 	public List<Lista> mostrarListasCadastradas(){
 		return lr.bucsarTodasAsListas();
 	}
+	
+	public List<ListaItens> buscarItensListaPorPKLista(Integer codLista){
+		return lir.buscarItensListaPorPKLista(codLista);
+	}
 }
